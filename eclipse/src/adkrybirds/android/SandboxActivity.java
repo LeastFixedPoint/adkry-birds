@@ -29,6 +29,7 @@ public class SandboxActivity extends Activity implements Runnable {
         
         usbManager = UsbManager.getInstance(this);
         
+        setContentView(R.layout.main);
         statusView = (TextView) findViewById(R.id.status);
         statusView.setText("Created");
 
@@ -60,8 +61,8 @@ public class SandboxActivity extends Activity implements Runnable {
 	fileDescriptor = parcelDescriptor.getFileDescriptor();
 	input = new FileInputStream(fileDescriptor);
 	output = new FileOutputStream(fileDescriptor);
-        Thread thread = new Thread(null, this, "AccessoryThread");
-        thread.start();
+	
+	statusView.setText("Connected");
     }
     
     private void onAccessoryDetached(Intent intent) {
@@ -69,6 +70,8 @@ public class SandboxActivity extends Activity implements Runnable {
 	    parcelDescriptor.close();
 	} catch (IOException e) {
 	    throw new RuntimeException(e);
+	} finally {
+	    statusView.setText("Disconnected");
 	}
     }
 
