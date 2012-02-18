@@ -17,7 +17,16 @@
 #include <CapSense.h>
 
 
-int pushServo = 9;
+int pushServoPin = 11;
+int sightServoPin = 12;
+
+int firstLedPin = 24;
+int secondLedPin = 26;
+int threeLedPin = 28;
+
+Servo pushServo;
+Servo sightServo;
+
 
 AndroidAccessory acc("AdkryBird, Inc.",
   "AdkryBird",
@@ -26,12 +35,45 @@ AndroidAccessory acc("AdkryBird, Inc.",
   "http://sheremetat.name",
   "0000000012345678");
 
+
 void setup(){
+  Serial.begin(115200);
+  Serial.print("\r\nStart");
+  //init push servo
+  pushServo.attach(pushServoPin);
+  
+  //init sight servo
+  //sightServo.attach(sightServo);
+  
+  //Init light 
+  pinMode(firstLedPin, OUTPUT);
+  pinMode(secondLedPin, OUTPUT);
+  pinMode(threeLedPin, OUTPUT);
+  
+  // Set HIGHT to led
+  digitalWrite(firstLedPin, HIGH);
+  digitalWrite(secondLedPin, HIGH);
+  digitalWrite(threeLedPin, HIGH);
+  
   acc.powerOn();
 }
 
 void loop(){
-
+  byte msg[3];
+  if (acc.isConnected()) {
+    int len = acc.read(msg, sizeof(msg), 1);
+    if (len > 0) {
+        if (msg[0] == 0x2) {
+	  if (msg[1] == 0x0){
+	    pushServo.write(msg[2]);
+            delay(2000);
+            pushServo.write(0);
+          } else if (msg[1] == 0x1){
+            pushServo.write(msg[2]);
+          }  
+      }
+    }
+  }
 }
 
 
