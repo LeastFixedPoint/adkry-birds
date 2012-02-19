@@ -8,17 +8,11 @@
     <uses-feature android:name="android.hardware.usb.accessory"/>
 
     <application
-<<<<<<< HEAD
-            android:icon="@drawable/ic_launcher"
-            android:label="@string/app_name">
-
-=======
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         
     	<uses-library android:name="com.android.future.usb.accessory"/>
         
->>>>>>> 49b17bc27f78dd293c493cc95b6410a9f1247350
         <activity android:name=".SandboxActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -39,6 +33,7 @@
             <meta-data android:name="android.hardware.usb.action.USB_ACCESSORY_DETACHED"
                        android:resource="@xml/accessory_filter"/>
         </activity>
+
         <activity android:name=".AdkryBirdsActivity"
                   android:screenOrientation="landscape">
             <intent-filter>
