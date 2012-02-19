@@ -1,13 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/candidate_recommended"
+                android:id="@+id/main_layer">
     <TextView
-        android:id="@+id/status"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="None" />
-
-</LinearLayout>
+            android:id="@+id/title_adk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADK-ry Birds Android Control"
+            android:textSize="25dip"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+    <LinearLayout android:id="@+id/angle"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:layout_alignParentLeft="true"
+                  android:layout_centerVertical="true"
+                  android:paddingTop="25dip">
+        <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="None"
+                android:visibility="gone"/>
+        <TextView
+                android:id="@+id/angle_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="angle"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dip"/>
+        <Button android:id="@+id/angle_plus"
+                android:layout_width="150dip"
+                android:layout_height="70dip"
+                android:text="up"
+                android:textSize="30dip"/>
+        <Button android:id="@+id/angle_minus"
+                android:layout_width="150dip"
+                android:layout_height="70dip"
+                android:text="down"
+                android:textSize="30dip"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Angle step"
+                android:layout_gravity="center"
+                android:layout_margin="3dip"/>
+        <Spinner
+                android:id="@+id/angle_step"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/steps_array"
+                android:prompt="@string/angle_prompt"/>
+    </LinearLayout>
+    <Button android:id="@+id/kill"
+            android:layout_width="150dip"
+            android:layout_height="70dip"
+            android:text="Kill"
+            android:textSize="30dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+</RelativeLayout>
