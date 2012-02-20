@@ -10,6 +10,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.os.ParcelFileDescriptor;
+import android.util.Log;
 
 import com.android.future.usb.UsbAccessory;
 import com.android.future.usb.UsbManager;
@@ -39,9 +40,7 @@ public class Accessory {
     
     public void aim(byte degrees) {
 	try {
-	    output.write(0x02);
-	    output.write(0x01);
-	    output.write(degrees);
+	    output.write(new byte[] { 0x02, 0x02, (byte) (90-degrees) });
 	    output.flush();
 	    this.degrees = degrees;
 	} catch (IOException e) {
@@ -51,9 +50,7 @@ public class Accessory {
     
     public void shoot() {
 	try {
-	    output.write(0x02);
-	    output.write(0x01);
-	    output.write(degrees);
+	    output.write(new byte[] { 0x02,  0x01, degrees });
 	    output.flush();
 	} catch (IOException e) {
 	    throw new RuntimeException(e);
@@ -75,10 +72,14 @@ public class Accessory {
     
     private void onAccessoryAttached(Intent intent) {
 	accessory = UsbManager.getAccessory(intent);
+	Log.w("accessory", "Accessory: " + accessory);
 	parcelDescriptor = usbManager.openAccessory(accessory);
 	fileDescriptor = parcelDescriptor.getFileDescriptor();
 	input = new FileInputStream(fileDescriptor);
 	output = new FileOutputStream(fileDescriptor);
+	for (Listener listener : listeners) {
+	    listener.onAttached();
+	}
     }
     
     private void onAccessoryDetached(Intent intent) {
@@ -87,6 +88,9 @@ public class Accessory {
 	} catch (IOException e) {
 	    throw new RuntimeException(e);
 	} finally {
+		for (Listener listener : listeners) {
+		    listener.onDetached();
+		}
 	}
     }
 }

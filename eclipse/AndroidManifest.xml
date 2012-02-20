@@ -13,7 +13,7 @@
         
     	<uses-library android:name="com.android.future.usb.accessory"/>
         
-        <activity android:name=".SandboxActivity">
+        <activity android:name=".AdkryBirdsActivity" android:screenOrientation="landscape">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <action android:name="android.intent.action.MAIN"/>
@@ -34,13 +34,6 @@
                        android:resource="@xml/accessory_filter"/>
         </activity>
 
-        <activity android:name=".AdkryBirdsActivity"
-                  android:screenOrientation="landscape">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER"/>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
